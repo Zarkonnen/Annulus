@@ -1,0 +1,17 @@
+type forest f
+models forest0 forest1 forest2 forest3 forest4
+
+type wall0 W
+models wall0
+blocker 1
+
+type wall1 w
+models wall1
+blocker 1
+
+type grass .
+models grass0 grass1 grass2 grass3 grass4
+
+type water =
+models water
+blocker 1

@@ -1,0 +1,25 @@
+type bush b
+models bushlet0
+activeModels bushlet0Berries
+
+type ruins r
+models ruins0 ruins1
+activeModels ruins0 ruins1
+
+type wreck R
+models wreck0
+activeModels wreck0
+
+type building B
+models building0 building1 building2
+activeModels building0 building1 building2
+
+type xanthelope x
+activeModels xanthelope
+
+type eruxoraptor e
+activeModels eruxoraptor
+
+type rocks O
+models rocks0 rocks1 rocks2
+activeModels rocks0 rocks1 rocks2

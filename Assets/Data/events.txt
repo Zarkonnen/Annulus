@@ -1,0 +1,362 @@
+type berriesBetter
+msg Your tribe comes across some berry bushes.
+special bush
+if ! isActive 1 .betterBerries == 1
+option Gather them all
+outcomeMsg You spread out and pick the bushes clean.
+outcome #Food + 10 ! setActive 0 .t + 10 .t2 + 10
+option Pick a few
+outcomeMsg You gather the juiciest, ripest berries.
+outcome #Food + 2 .t + 5 .t2 + 5
+
+type berriesNormal
+msg Your tribe comes across some berry bushes.
+special bush
+if ! isActive 1
+option Gather them all
+outcomeMsg You spread out and pick the bushes clean.
+outcome #Food + 3 ! setActive 0 .t + 10 .t2 + 10
+option Pick a few
+outcomeMsg You gather the juiciest, ripest berries.
+outcome #Food + 1 .t + 5 .t2 + 5
+
+type xanthLasers
+msg A herd of xanthelopes crosses your path.
+special xanthelope
+if ! isActive 1 Lasers == 1
+option Hunt them
+outcomeMsg Before you know it, all the xanthelopes are dead, torn apart by the ancient light weapons.
+outcome #Food + 50 .t + 3 .t2 + 3 .xanthsLasered = 1 ! setActive 0
+option Leave them alone
+outcomeMsg You move on.
+
+type xanthSpears
+msg A herd of xanthelopes crosses your path.
+special xanthelope
+if ! isActive 1 Spears == 1
+option Hunt them
+outcomeMsg You ambush the creatures with your spears.
+outcome #Food + 6 .t + 10 .t2 + 10
+option Leave them alone
+outcomeMsg You move on.
+
+type xanthSwords
+msg A herd of xanthelopes crosses your path.
+special xanthelope
+if ! isActive 1 Swords == 1
+option Hunt them
+outcomeMsg You ambush the creatures with your swords.
+outcome #Food + 9 .t + 5 .t2 + 5
+option Leave them alone
+outcomeMsg You move on.
+
+type xanth
+msg A herd of xanthelopes crosses your path.
+special xanthelope
+if ! isActive 1
+option Hunt them
+outcomeMsg After a long hunt, you manage to bring down one of the animals.
+outcome #Food + 3 .t + 20 .t2 + 20
+option Leave them alone
+outcomeMsg You move on.
+
+type eruxAlone
+msg You are stalked by a flock of eruxoraptors.
+special eruxoraptor
+if ! isActive 1 #People < 2
+option Run away
+outcomeMsg The creatures devour you.
+outcome ! restart 0
+
+type eruxLasers
+msg Your tribe is tracking a flock of eruxoraptors.
+special eruxoraptor
+if ! isActive 1 Lasers == 1
+option Hunt them
+outcomeMsg The ancient light weapons swiftly vaporize the raptors.
+outcome ! setActive 0 .t + 2 .t2 + 2
+option Keep them at bay
+outcomeMsg Your weapons keep them at bay easily.
+
+type eruxMighty
+msg Your tribe is tracking a flock of eruxoraptors.
+special eruxoraptor
+if ! isActive 1 #Might > 6
+option Hunt them
+outcomeMsg The mighty hunters of your tribe wipe out the monstrous raptors.
+outcome ! setActive 0 #Might + 5 .t + 5 .t2 + 5
+option Keep them at bay
+outcomeMsg Your weapons keep them at bay easily.
+
+type eruxSwords
+msg Your tribe is stalked by a flock of eruxoraptors.
+special eruxoraptor
+if ! isActive 1 Swords == 1
+option Hunt them
+outcomeMsg Your mightiest hunters engage in battle with the monsters, sword against claw.
+outcome #People - 1 #Might + 2 .t + 5 .t2 + 5
+option Keep them at bay
+outcomeMsg Your swords just about keep them at bay.
+
+type eruxSpears
+msg Your tribe is stalked by a flock of eruxoraptors.
+special eruxoraptor
+if ! isActive 1 Spears == 1
+option Hunt them
+outcomeMsg Your mightiest hunters engage in battle with the monsters, spear against claw.
+outcome #People - 1 #Might + 1 .t + 5 .t2 + 5
+option Run away
+outcomeMsg The creatures ambush you easily and take one of your people as prey.
+outcome #People - 1
+
+type erux
+msg Your tribe is stalked by a flock of eruxoraptors.
+special eruxoraptor
+if ! isActive 1
+option Run away
+outcomeMsg The creatures ambush you easily and take one of your people as prey.
+outcome #People - 1
+
+type stoneWeapons
+msg These stones would make good spear points.
+special rocks
+if Spears == 0 Lasers == 0 Swords == 0
+option Arm yourselves
+outcomeMsg You spend a few days crafting new, better weapons.
+outcome Spears = 1 .t + 30 .t2 + 30
+option Too much effort
+outcomeMsg You move on
+
+type swords
+msg It would be possible to forge swords from this wreckage.
+special ruins
+if Lasers == 0 Swords == 0 #Knowledge > 2
+option Arm yourselves
+outcomeMsg You spend a few days crafting new, better weapons.
+outcome Spears = 0 Swords = 1 .t + 40 .t2 + 40
+option Too much effort
+outcomeMsg You move on
+
+type laserWeapons
+msg In the crashed vessel, you find ancient weapons that shoot beams of light.
+special wreck
+if ! isActive 1 #Knowledge > 4 Lasers == 0
+option Take them and learn how to use them
+outcomeMsg These new weapons are horribly effective.
+outcome Spears = 0 Lasers = 1 Swords = 0 ! setActive 0 .t + 5 .t2 + 5
+option Leave them alone
+
+type knowledgeVessel
+msg There are more, different symbols in this crashed vessel.
+special wreck
+if ! isActive 1 #Knowledge > 4
+option Study them
+outcomeMsg Fascinating. "Faster than light travel"?
+outcome #Knowledge + 2 ! setActive 0 .t + 10 .t2 + 10
+option Move on
+
+type confusedVessel
+msg What is this strange, tilted tower?
+special wreck
+if ! isActive 1
+option Investigate it
+outcomeMsg The tower is made of metal and covered in odd symbols that make no sense.
+outcome .t + 3 .t2 + 3
+option Move on
+
+type victory
+msg You recognize these symbols! These are the master controls for the Annulus.
+special building
+if #Knowledge > 9
+option Learn all you can
+outcomeMsg Earth. Home. There is a ship berthed on the underside of the Annulus. It is ready.
+outcome ! restart 1
+
+type hopeGateFail
+msg Inside this building, the dead litter the floor.
+special building
+if ! isActive 1 #Knowledge > 6 #Hope < 5
+option An awful place
+outcomeMsg You leave, wishing you could better withstand these horrors.
+
+type hopeGateWin
+msg Inside this building, the dead litter the floor.
+special building
+if ! isActive 1 #Knowledge > 6
+option An awful place, and yet...
+outcomeMsg They are only dead people. You bury them, and study their symbols.
+outcome #Knowledge + 2 #Hope + 1 ! setActive 0 .t + 30 .t2 + 30
+
+type mightGateFail
+msg The way into this building is barred.
+special building
+if ! isActive 1 #Knowledge > 4 #Might < 6
+option If you were stronger...
+outcomeMsg There is no way in for now.
+
+type mightGateWin
+msg The way into this building is barred.
+special building
+if ! isActive 1 #Knowledge > 4
+option Force your way in.
+outcomeMsg Inside a vestibule, there are many new charts and symbols.
+outcome #Knowledge + 2 ! setActive 0 .t + 20 .t2 + 20
+
+type basicBuilding
+msg A strange building from the old times.
+special building
+if ! isActive 1
+option Study the symbols on the outside
+outcomeMsg Fascinating. But what does it all mean?
+outcome #Knowledge + 1 ! setActive 0 .t + 10 .t2 + 10
+option Move on
+outcomeMsg You have better things to do.
+
+type noHopeFight
+msg A fight breaks out, and suddenly, one of the tribe is dead on the floor.
+if .t2 > 120 #Hope == 0 #People > 1 #Food > 14 Spears == 1
+option Hold a funeral feast
+outcomeMsg You honor the dead and make amends.
+outcome #Food - 15 #Hope + 1 #People - 1
+option Break your spears
+outcomeMsg There is too much violence in the tribe.
+outcome Spears = 0 #Hope + 1 #People + 1 #Might - 1
+option Mourn
+outcomeMsg How did it come to this?
+
+type noHopeFightNoFood
+msg A fight breaks out, and suddenly, one of the tribe is dead on the floor.
+if .t2 > 120 #Hope == 0 #People > 1 Spears == 1
+option Break your spears
+outcomeMsg There is too much violence in the tribe.
+outcome Spears = 0 #Hope + 1 #People + 1 #Might - 1
+option Mourn
+outcomeMsg How did it come to this?
+
+type noHopeFightNoSpears
+msg A fight breaks out, and suddenly, one of the tribe is dead on the floor.
+if .t2 > 120 #Hope == 0 #People > 1 #Food > 14
+option Hold a funeral feast
+outcomeMsg You honor the dead and make amends.
+outcome #Food - 15 #Hope + 1 #People - 1
+option Mourn
+outcomeMsg How did it come to this?
+
+type noHopeFightNothing
+msg A fight breaks out, and suddenly, one of the tribe is dead on the floor.
+if .t2 > 120 #Hope == 0 #People > 1
+option Mourn
+outcomeMsg How did it come to this?
+
+type despair
+msg There is no hope left.
+if .t2 > 120 #Hope == 0
+option Despair
+outcomeMsg How did it come to this?
+
+type kepgorFood
+msg Kepgor, mightiest hunter of the tribe, demands that he be given more food to strengthen him.
+if .t2 > 120 .kepgor == 0 #Food > 19 #People > 3 .swagger > 0
+option Agree
+outcomeMsg Meat is brought before him, which he devours.
+outcome .kepgor + 1 #Food - 10 #Might + 1 .t2 = 0 .swagger + 1
+option Refuse
+outcomeMsg He flies into a rage and calls you all useless.
+outcome .kepgor + 1 #Hope - 1 .t2 = 0
+
+type kepgorFood
+msg Kepgor, mightiest hunter of the tribe, demands that he be given more women to please him.
+if .t2 > 120 .kepgor == 1 #People > 6 .swagger > 1
+option Agree
+outcomeMsg He chooses the two most beautiful of the tribe.
+outcome .kepgor + 1 #Might + 1 .t2 = 0 .swagger + 1
+option Refuse
+outcomeMsg He flies into a rage and calls you all useless.
+outcome .kepgor + 1 #Hope - 1 .t2 = 0
+
+type xirramSparring
+msg Old Xirram insists that the men of the tribe spend their time sparring to become better fighters.
+if .t2 > 120 .xirram == 0 #Food > 19 #People > 3
+option Agree
+outcomeMsg The men spend days sparring and acquire a new, obnoxious swagger.
+outcome .xirram + 1 #Food - 10 #Might + 1 #Hope - 1 .swagger + 1 .t2 = 0
+option Refuse
+outcomeMsg Old Xirram grumbles but shuts up.
+outcome .xirram + 1 .t2 = 0
+
+type tixarGathering
+msg Tixar and the other women of the tribe want the men to help more with gathering food.
+if .t2 > 120 .tixar == 0 #People > 3
+option Agree
+outcomeMsg The men complain bitterly but eventually promise to help.
+outcome .tixar + 1 #Hope - 1 .betterBerries = 1 .swagger - 1 .t2 = 0
+option Refuse
+outcomeMsg The men have better things to do.
+outcome .tixar + 1 .swagger + 1 .t2 = 0
+
+type ditchLasers
+msg Ulbrak the singer argues that the ancient light weapons are too destructive.
+if .t2 > 50 .xanthsLasered == 1 #People > 3
+option Throw them away
+outcomeMsg You rid yourself of these monstrous devices.
+outcome .xanthsLasered = 0 Lasers = 0 #Hope + 3 .swagger - 1 .t2 = 0
+option Study them
+outcomeMsg Taking them apart yields knowledge, but also death, as one of the tribe is killed by one of them exploding.
+outcome .xanthsLasered = 0 Lasers = 0 #Hope - 1 #People - 1 #Knowledge + 2 .t2 = 0
+option Keep them
+outcomeMsg No! They are what keeps the tribe safe!
+outcome .xanthsLasered = 0 #Might + 1 .t2 = 0
+
+type song
+msg Ulbrak the singer has a new song!
+if .t2 > 120 .song == 0
+option Sit down and listen
+outcomeMsg It is beautiful!
+outcome .song = 1 #Hope + 2 .t2 = 0 .t + 20
+option No one cares about singing
+outcomeMsg Ulbrak sings it anyway, as you walk.
+outcome .song = 1 .t2 = 0
+
+type childbirth
+msg A new child is born to the tribe.
+if .t2 > 120
+option A joyous occasion
+outcomeMsg Spirits rise.
+outcome #Hope + 1 #People + 1
+
+type foodNeeded20
+msg Your people are hungry.
+if .t > 100 #Food > 19
+option Eat the bare minimum needed to live
+outcomeMsg You have a dismal meal.
+outcome #Might - 1 #Hope - 1 #Food - 1 .t = 60
+option Have a hearty meal
+outcomeMsg You eat your fill.
+outcome #Food - 10 .t = 20
+option Have a feast
+outcomeMsg You celebrate the abundance of the world.
+outcome #Hope + 1 #Food - 20 .t = 0
+
+type foodNeeded10
+msg Your people are hungry.
+if .t > 100 #Food > 9
+option Eat the bare minimum needed to live
+outcomeMsg You have a dismal meal.
+outcome #Might - 1 #Hope - 1 #Food - 1 .t = 60
+option Have a hearty meal
+outcomeMsg You eat your fill.
+outcome #Food - 10 .t = 20
+
+type foodNeeded1
+msg Your people are hungry.
+if .t > 100 #Food > 0
+option Eat the bare minimum needed to live
+outcomeMsg You have a dismal meal.
+outcome #Might - 1 #Hope - 1 #Food - 1 .t = 60
+
+type foodNeeded0
+msg Your people are hungry, but there is no food.
+if .t > 100
+option This is the end
+outcomeMsg You lie down to die.
+outcome ! restart 0
