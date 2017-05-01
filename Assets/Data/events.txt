@@ -214,49 +214,53 @@ outcomeMsg You have better things to do.
 
 type noHopeFight
 msg A fight breaks out, and suddenly, one of the tribe is dead on the floor.
-if .t2 > 120 #Hope == 0 #People > 1 #Food > 14 Spears == 1
+if .t2 > 90 #Hope == 0 #People > 1 #Food > 14 Spears == 1
 option Hold a funeral feast
 outcomeMsg You honor the dead and make amends.
-outcome #Food - 15 #Hope + 1 #People - 1
+outcome #Food - 15 #Hope + 1 #People - 1 .t2 = 0
 option Break your spears
 outcomeMsg There is too much violence in the tribe.
-outcome Spears = 0 #Hope + 1 #People + 1 #Might - 1
+outcome Spears = 0 #Hope + 1 #People + 1 #Might - 1 .t2 = 0
 option Mourn
 outcomeMsg How did it come to this?
+outcome .t2 = 0
 
 type noHopeFightNoFood
 msg A fight breaks out, and suddenly, one of the tribe is dead on the floor.
-if .t2 > 120 #Hope == 0 #People > 1 Spears == 1
+if .t2 > 90 #Hope == 0 #People > 1 Spears == 1
 option Break your spears
 outcomeMsg There is too much violence in the tribe.
-outcome Spears = 0 #Hope + 1 #People + 1 #Might - 1
+outcome Spears = 0 #Hope + 1 #People + 1 #Might - 1 .t2 = 0
 option Mourn
 outcomeMsg How did it come to this?
+outcome .t2 = 0
 
 type noHopeFightNoSpears
 msg A fight breaks out, and suddenly, one of the tribe is dead on the floor.
-if .t2 > 120 #Hope == 0 #People > 1 #Food > 14
+if .t2 > 90 #Hope == 0 #People > 1 #Food > 14
 option Hold a funeral feast
 outcomeMsg You honor the dead and make amends.
-outcome #Food - 15 #Hope + 1 #People - 1
+outcome #Food - 15 #Hope + 1 #People - 1 .t2 = 0
 option Mourn
 outcomeMsg How did it come to this?
+outcome .t2 = 0
 
 type noHopeFightNothing
 msg A fight breaks out, and suddenly, one of the tribe is dead on the floor.
-if .t2 > 120 #Hope == 0 #People > 1
+if .t2 > 90 #Hope == 0 #People > 1
 option Mourn
 outcomeMsg How did it come to this?
+outcome .t2 = 0
 
 type despair
 msg There is no hope left.
-if .t2 > 120 #Hope == 0
+if .t2 > 90 #Hope == 0
 option Despair
 outcomeMsg How did it come to this?
 
 type kepgorFood
 msg Kepgor, mightiest hunter of the tribe, demands that he be given more food to strengthen him.
-if .t2 > 120 .kepgor == 0 #Food > 19 #People > 3 .swagger > 0
+if .t2 > 90 .kepgor == 0 #Food > 19 #People > 3 .swagger > 0
 option Agree
 outcomeMsg Meat is brought before him, which he devours.
 outcome .kepgor + 1 #Food - 10 #Might + 1 .t2 = 0 .swagger + 1
@@ -266,7 +270,7 @@ outcome .kepgor + 1 #Hope - 1 .t2 = 0
 
 type kepgorFood
 msg Kepgor, mightiest hunter of the tribe, demands that he be given more women to please him.
-if .t2 > 120 .kepgor == 1 #People > 6 .swagger > 1
+if .t2 > 90 .kepgor == 1 #People > 6 .swagger > 1
 option Agree
 outcomeMsg He chooses the two most beautiful of the tribe.
 outcome .kepgor + 1 #Might + 1 .t2 = 0 .swagger + 1
@@ -276,7 +280,7 @@ outcome .kepgor + 1 #Hope - 1 .t2 = 0
 
 type xirramSparring
 msg Old Xirram insists that the men of the tribe spend their time sparring to become better fighters.
-if .t2 > 120 .xirram == 0 #Food > 19 #People > 3
+if .t2 > 90 .xirram == 0 #Food > 19 #People > 3
 option Agree
 outcomeMsg The men spend days sparring and acquire a new, obnoxious swagger.
 outcome .xirram + 1 #Food - 10 #Might + 1 #Hope - 1 .swagger + 1 .t2 = 0
@@ -286,7 +290,7 @@ outcome .xirram + 1 .t2 = 0
 
 type tixarGathering
 msg Tixar and the other women of the tribe want the men to help more with gathering food.
-if .t2 > 120 .tixar == 0 #People > 3
+if .t2 > 90 .tixar == 0 #People > 3
 option Agree
 outcomeMsg The men complain bitterly but eventually promise to help.
 outcome .tixar + 1 #Hope - 1 .betterBerries = 1 .swagger - 1 .t2 = 0
@@ -309,7 +313,7 @@ outcome .xanthsLasered = 0 #Might + 1 .t2 = 0
 
 type song
 msg Ulbrak the singer has a new song!
-if .t2 > 120 .song == 0
+if .t2 > 90 .song == 0
 option Sit down and listen
 outcomeMsg It is beautiful!
 outcome .song = 1 #Hope + 2 .t2 = 0 .t + 20
@@ -322,7 +326,7 @@ msg A new child is born to the tribe.
 if .t2 > 120
 option A joyous occasion
 outcomeMsg Spirits rise.
-outcome #Hope + 1 #People + 1
+outcome #Hope + 1 #People + 1 .t2 = 0
 
 type foodNeeded20
 msg Your people are hungry.
